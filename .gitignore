@@ -1,9 +1,41 @@
-venv/
+# Python
 __pycache__/
-*.pyc
-.env
-storage/
+*.py[cod]
+*.pyo
+*.pyd
 .pytest_cache/
-.DS_Store
-.idea/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environment
+venv/
+.env/
+.venv/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Local config variants
+app/core/config_*.py
+
+# Uploads / local storage
+storage/
+uploads/
+
+# IDE
 .vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+*.log
+
+# Build
+dist/
+build/
+*.egg-info/
