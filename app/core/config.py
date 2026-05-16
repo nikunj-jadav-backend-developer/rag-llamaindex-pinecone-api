@@ -39,6 +39,14 @@ class Settings(BaseSettings):
             raise ValueError(f"APP_ENV must be one of {allowed_envs}")
         return value
 
+    @field_validator("PINECONE_METRIC")
+    @classmethod
+    def validate_pinecone_metric(cls, value):
+        allowed_metrics = ["cosine", "euclidean", "dotproduct"]
+        if value not in allowed_metrics:
+            raise ValueError(f"PINECONE_METRIC must be one of {allowed_metrics}")
+        return value
+
     @property
     def is_production(self)->bool:
         return self.APP_ENV == "production"
