@@ -24,6 +24,11 @@ class Settings(BaseSettings):
         ]
     )
     LOG_LEVEL: str = Field(default="INFO")
+    UPLOAD_DIR: str = Field(default="storage/uploads")
+    MAX_UPLOAD_SIZE_MB: int = Field(default=20)
+    ALLOWED_FILE_EXTENSIONS: List[str] = Field(default=["pdf", "txt"])
+
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
@@ -46,16 +51,29 @@ class Settings(BaseSettings):
         if value not in allowed_metrics:
             raise ValueError(f"PINECONE_METRIC must be one of {allowed_metrics}")
         return value
+    
+    @field_validator("MAX_UPLOAD_SIZE_MB")
+    @classmethod
+    def validate_upload_size(cls, value: int) -> int:
+        if value <= 0:
+            raise ValueError("MAX_UPLOAD_SIZE_MB must be greater than 0")
+
+        return value
 
     @property
     def is_production(self)->bool:
         return self.APP_ENV == "production"
 
+    @property
     def get_groq_api_key(self) -> str:
         return self.GROQ_API_KEY.get_secret_value()
-
+    @property
     def get_pinecone_api_key(self) -> str:
         return self.PINECONE_API_KEY.get_secret_value()
+
+    @property
+    def max_upload_size_bytes(self) -> int:
+        return self.MAX_UPLOAD_SIZE_MB * 1024 * 1024
 
 @lru_cache
 def get_settings() -> Settings:
