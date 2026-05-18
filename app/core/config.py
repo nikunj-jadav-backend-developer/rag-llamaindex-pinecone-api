@@ -4,30 +4,72 @@ from pydantic_settings import BaseSettings,SettingsConfigDict
 from typing import List
 
 class Settings(BaseSettings):
+
+    # -------------------------------------------------------------------------
+    # Application
+    # -------------------------------------------------------------------------
     APP_NAME : str = Field(default="RAG LlamaIndex Pinecone API"),
     APP_VERSION : str = Field(default="1.0.0"),
     APP_ENV : str = Field(default="local"),
     APP_DEBUG: bool = Field(default=True),
     API_V1_PREFIX: str = Field(default="/api/v1")
+
+    # -------------------------------------------------------------------------
+    # Pinecone
+    # -------------------------------------------------------------------------
+    
     PINECONE_API_KEY: SecretStr = Field(default=...),
     PINECONE_INDEX: str = Field(default=...),
     PINECONE_EMBEDDING_DIMENSION: int = Field(default=1536),
     PINECONE_METRIC: str = Field(default="cosine"),
     PINECONE_CLOUD: str = Field(default="aws"),
     PINECONE_REGION: str = Field(default="us-east-1"),
+
+    # -------------------------------------------------------------------------
+    # Groq LLM
+    # -------------------------------------------------------------------------
     GROQ_API_KEY: SecretStr = Field(default=...),
     GROQ_LLM_MODEL: str = Field(default="gpt-4o"),
+    GROQ_LLM_TEMPERATURE: float = Field(default=0.4)
+
+    # -------------------------------------------------------------------------
+    # HuggingFace Embeddings
+    # -------------------------------------------------------------------------
+    HF_EMBEDDING_MODEL: str = Field(
+        default="sentence-transformers/all-MiniLM-L6-v2"
+    )
+    EMBEDDING_DIMENSION: int = Field(default=384)
+
+    # -------------------------------------------------------------------------
+    # CORS
+    # -------------------------------------------------------------------------
     BACKEND_CORS_ORIGINS: List[str] = Field(default=[
         "http://localhost",
         "http://localhost:3000",
         "http://127.0.0.1:3000",
         ]
     )
+
+    # -------------------------------------------------------------------------
+    # Logging
+    # -------------------------------------------------------------------------
+
     LOG_LEVEL: str = Field(default="INFO")
+
+    # -------------------------------------------------------------------------
+    # File Upload
+    # -------------------------------------------------------------------------
     UPLOAD_DIR: str = Field(default="storage/uploads")
     MAX_UPLOAD_SIZE_MB: int = Field(default=20)
     ALLOWED_FILE_EXTENSIONS: List[str] = Field(default=["pdf", "txt"])
 
+
+    # -------------------------------------------------------------------------
+    # RAG
+    # -------------------------------------------------------------------------
+    CHUNK_SIZE: int = Field(default=1024)
+    CHUNK_OVERLAP: int = Field(default=100)
+    SIMILARITY_TOP_K: int = Field(default=5)
 
     model_config = SettingsConfigDict(
         env_file=".env",
