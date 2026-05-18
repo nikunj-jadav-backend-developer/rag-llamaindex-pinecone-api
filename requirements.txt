@@ -42,10 +42,17 @@ iniconfig==2.3.0
 Jinja2==3.1.6
 jiter==0.14.0
 joblib==1.5.3
+jsonpatch==1.33
+jsonpointer==3.1.1
+langchain-core==1.4.0
+langchain-huggingface==1.2.2
+langchain-protocol==0.0.15
+langsmith==0.8.5
 llama-index==0.14.16
 llama-index-cli==0.5.5
 llama-index-core==0.14.22
 llama-index-embeddings-huggingface==0.7.0
+llama-index-embeddings-langchain==0.5.0
 llama-index-embeddings-openai==0.5.2
 llama-index-indices-managed-llama-cloud==0.11.1
 llama-index-instrumentation==0.5.0
@@ -107,6 +114,7 @@ pytz==2026.2
 PyYAML==6.0.3
 regex==2026.5.9
 requests==2.34.2
+requests-toolbelt==1.0.0
 safetensors==0.7.0
 scikit-learn==1.8.0
 scipy==1.17.1
@@ -133,6 +141,9 @@ typing-inspection==0.4.2
 typing_extensions==4.15.0
 tzdata==2026.2
 urllib3==2.7.0
+uuid_utils==0.15.0
 uvicorn==0.47.0
 wrapt==2.1.2
+xxhash==3.7.0
 yarl==1.23.0
+zstandard==0.25.0

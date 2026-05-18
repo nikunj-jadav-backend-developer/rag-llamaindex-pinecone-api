@@ -2,12 +2,13 @@ from fastapi import UploadFile, HTTPException
 
 from app.core.config import get_settings
 from app.repositories.file_repository import FileRepository
-
+from app.services.llamaindex_service import LlamaIndexService
 
 class DocumentService:
     def __init__(self):
         self.settings = get_settings()
         self.file_repository = FileRepository()
+        self.llamaindex_service = LlamaIndexService()
 
     def validate_file_extension(self, file: UploadFile) -> None:
         extension = file.filename.split(".")[-1].lower()
@@ -34,6 +35,8 @@ class DocumentService:
         self.validate_file_size(file)
 
         file_path = await self.file_repository.save_file(file)
+
+        self.llamaindex_service.ingest_document(file_path)
 
         return {
             "status": "success",
