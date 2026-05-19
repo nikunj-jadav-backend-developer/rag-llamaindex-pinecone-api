@@ -102,6 +102,21 @@ class Settings(BaseSettings):
 
         return value
 
+    @field_validator("GROQ_LLM_TEMPERATURE")
+    @classmethod
+    def validate_temperature(cls, value: float) -> float:
+        if not (0.0 <= value <= 1.0):
+            raise ValueError("GROQ_LLM_TEMPERATURE must be between 0.0 and 1.0")
+        return value
+
+    @field_validator("SIMILARITY_TOP_K")
+    @classmethod
+    def validate_similarity_top_k(cls, value: int) -> int:
+        if value <= 0:
+            raise ValueError("SIMILARITY_TOP_K must be greater than 0")
+
+        return value
+
     @property
     def is_production(self)->bool:
         return self.APP_ENV == "production"
