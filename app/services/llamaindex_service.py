@@ -85,13 +85,8 @@ class LlamaIndexService:
         return True
 
     def query(self, question: str) -> str:
-        """
-        Search relevant chunks from Pinecone and generate answer using Groq LLM.
-        """
-
         index = VectorStoreIndex.from_vector_store(
             vector_store=self.vector_store,
-            embed_model=self.embed_model,
         )
 
         query_engine = index.as_query_engine(
