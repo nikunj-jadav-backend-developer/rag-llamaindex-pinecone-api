@@ -8,22 +8,22 @@ class Settings(BaseSettings):
     # -------------------------------------------------------------------------
     # Application
     # -------------------------------------------------------------------------
-    APP_NAME : str = Field(default="RAG LlamaIndex Pinecone API"),
-    APP_VERSION : str = Field(default="1.0.0"),
-    APP_ENV : str = Field(default="local"),
-    APP_DEBUG: bool = Field(default=True),
+    APP_NAME : str = Field(default="RAG LlamaIndex Pinecone API")
+    APP_VERSION : str = Field(default="1.0.0")
+    APP_ENV : str = Field(default="local")
+    APP_DEBUG: bool = Field(default=True)
     API_V1_PREFIX: str = Field(default="/api/v1")
 
     # -------------------------------------------------------------------------
     # Pinecone
     # -------------------------------------------------------------------------
     
-    PINECONE_API_KEY: SecretStr = Field(default=...),
-    PINECONE_INDEX: str = Field(default=...),
-    PINECONE_EMBEDDING_DIMENSION: int = Field(default=1536),
-    PINECONE_METRIC: str = Field(default="cosine"),
-    PINECONE_CLOUD: str = Field(default="aws"),
-    PINECONE_REGION: str = Field(default="us-east-1"),
+    PINECONE_API_KEY: SecretStr = Field(default=...)
+    PINECONE_INDEX: str = Field(default=...)
+    PINECONE_EMBEDDING_DIMENSION: int = Field(default=1536)
+    PINECONE_METRIC: str = Field(default="cosine")
+    PINECONE_CLOUD: str = Field(default="aws")
+    PINECONE_REGION: str = Field(default="us-east-1")
 
     # -------------------------------------------------------------------------
     # Groq LLM
