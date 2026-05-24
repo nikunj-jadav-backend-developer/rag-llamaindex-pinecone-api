@@ -1,0 +1,70 @@
+---
+- name: Deploy RAG Application
+  hosts: rag_servers
+  become: yes
+
+  vars_files:
+    - vars.yml
+  
+  tasks:
+    - name: Update and upgrade apt packages
+      apt:
+        update_cache: yes
+    
+    - name: Install required packages
+      apt:
+        name: 
+          - git
+          - python3-pip
+          - python3-venv
+          - python3-full
+          - virtualenv
+          - nginx
+        state: present
+
+    - name: Create virtual environment
+      command: python3 -m venv {{ app_dir }}/venv
+      args:
+        creates: "{{ app_dir }}/venv"
+      become_user: "{{ ansible_user }}"
+
+    - name: Clone the RAG application repository
+      git:
+        repo: "{{ repo_url }}"
+        dest: "{{ app_dir }}"
+        version: "{{ repo_branch }}"
+        force: yes
+      become_user: "{{ ansible_user }}"
+
+    - name: Install Python dependencies
+      pip:
+        virtualenv: "{{ app_dir }}/venv"
+        requirements: "{{ app_dir }}/requirements.txt"
+
+    - name: Create systemd service
+      copy:
+        dest: /etc/systemd/system/rag-app.service
+        content: |
+          [Unit]
+          Description=RAG FastAPI App
+          After=network.target
+
+          [Service]
+          User=ubuntu
+          WorkingDirectory={{ app_dir }}
+          Environment="PATH={{ app_dir }}/venv/bin"
+          ExecStart={{ app_dir }}/venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000
+          Restart=always
+
+          [Install]
+          WantedBy=multi-user.target
+
+    - name: Reload systemd
+      systemd:
+        daemon_reload: yes
+
+    - name: Start rag-app service
+      systemd:
+        name: rag-app
+        state: restarted
+        enabled: yes
