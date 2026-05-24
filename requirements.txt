@@ -4,9 +4,8 @@ aiosignal==1.4.0
 aiosqlite==0.22.1
 annotated-doc==0.0.4
 annotated-types==0.7.0
-ansible==13.7.0
 ansible-compat==26.3.0
-ansible-core==2.20.6
+ansible-core>=2.16,<2.18
 anyio==4.13.0
 attrs==26.1.0
 banks==2.4.2
