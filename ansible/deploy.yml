@@ -41,14 +41,20 @@
         force: yes
       become_user: ubuntu
 
+
     - name: Stop existing Docker containers
-      command: docker compose down
+      command: docker-compose down
       args:
         chdir: "{{ app_dir }}"
       ignore_errors: yes
 
+    - name: Copy .env.example to .env
+      copy:
+        src: ../.env.example
+        dest: "{{ app_dir }}/.env"
+
     - name: Build and start Docker containers
-      command: docker compose up -d --build
+      command: docker-compose up -d --build
       args:
         chdir: "{{ app_dir }}"
 

@@ -24,7 +24,7 @@ data "aws_ami" "ubuntu_2204"{
 }
 
 resource "aws_security_group" "rag_sg" {
-    name = "rag-app-sg"
+    name = "rag-app-sg-v2"
     description = "Security group for RAG app"
 
     ingress{
