@@ -32,7 +32,7 @@ resource "aws_security_group" "rag_sg" {
         from_port = 22
         to_port = 22
         protocol = "tcp"
-        cidr_blocks = [var.my_ip]
+        cidr_blocks = ["0.0.0.0/0"]
     }
 
     ingress {
@@ -72,7 +72,8 @@ resource "aws_key_pair" "rag_key" {
 resource "aws_instance" "rag_server" {
     ami = data.aws_ami.ubuntu_2204.id
     instance_type = var.instance_type
-    key_name      = var.key_name     
+    key_name      = var.key_name  
+    associate_public_ip_address = true   
     vpc_security_group_ids = [aws_security_group.rag_sg.id]    
     tags = {
         Name = "rag-app-server"
