@@ -72,7 +72,7 @@ msgspec==0.21.1
 multidict==6.7.1
 mypy_extensions==1.1.0
 nest-asyncio==1.6.0
-networkx==3.6.1
+networkx==3.4.2
 nltk==3.9.4
 numpy==2.4.5
 nvidia-cublas==13.1.1.3
