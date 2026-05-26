@@ -1,0 +1,4 @@
+repo_url: "https://github.com/nikunj-jadav-backend-developer/rag-llamaindex-pinecone-api.git"
+app_dir: "/home/ubuntu/rag-app"
+repo_branch: "develop"
+ansible_user: "ubuntu"

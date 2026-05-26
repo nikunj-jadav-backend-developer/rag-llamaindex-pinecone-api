@@ -1,0 +1,12 @@
+services :
+  rag-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - ./storage:/app/rag-llamaindex-pinecone/storage
+      - ./app:/app/rag-llamaindex-pinecone/app

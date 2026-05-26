@@ -1,0 +1,5 @@
+aws_region      = "ap-south-1"
+instance_type   = "t2.micro"
+key_name        = "rag-app-key"
+public_key_path = "/home/your-username/.ssh/rag-app-key.pub"
+my_ip           = "YOUR_PUBLIC_IP/32"
